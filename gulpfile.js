@@ -1,3 +1,4 @@
+
 const gulp = require('gulp'); //le moteur de gulp
 const del = require('del');
 const browserSync = require('browser-sync'); //HOT RELOAD
@@ -6,6 +7,7 @@ const uglify = require('gulp-uglify'); // Minify the JS
 const rename = require('gulp-rename'); //renome le code
 const cleanCSS = require('gulp-clean-css'); //minify the CSS
 const workboxBuild = require('workbox-build'); //permet de générer le service worker plus facilement
+
 
 // Clean "build" directory
 const clean = () => {
@@ -21,6 +23,7 @@ function copy() { //permet de creer un dossier build
       'app/**/*.svg',
       'app/**/*.gif',
       'app/manifest.json',
+      'app/Notif.js',
       //'app/**/*.css',
       //'app/**/*.js' //process by processJS
     ])
@@ -31,7 +34,8 @@ gulp.task('copy', copy); //ajoute la tache de copy
 function processJs() { //Clean le JS, le réduit et le renome
     return gulp.src('app/scripts/*.js')
     .pipe(babel({
-        presets: ['@babel/env']
+        presets: ['@babel/env'],
+        "plugins": ["syntax-async-functions"]
     }))
     .pipe(uglify())
     .pipe(rename({

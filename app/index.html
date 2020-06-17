@@ -28,13 +28,16 @@
 </head>
 
 <body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha256-1fEPhSsRKlFKGfK3eO710tEweHh1fwokU5wFGDHO+vg=" crossorigin="anonymous"></script>
   <script src="scripts/main.min.js"></script>
+  <script src="Notif.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
           .then(registration => {
             console.log('Service Worker registered! 😎');
+            push(registration);
           })
           .catch(err => {
             console.log('Registration failed 😫 ', err);

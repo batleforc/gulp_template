@@ -16,5 +16,6 @@ npm install
 
 ```shell
 $npm run serve #Serve an http
+$npm run push #Run a tiny push notification api
 $npm run build #Build the project in the /build directory
 ```
