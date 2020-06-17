@@ -1,0 +1,17 @@
+{
+    "name": "HTML5 TEMPLATE",
+    "short_name": "TEMPLATE",
+    "lang": "fr-FR",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "theme_color": "#FF9800",
+    "background_color": "#FF9800",
+    "icons": [
+        {
+            "src": "media/maskicon.png",
+            "sizes": "196x196",
+            "type": "image/png",
+            "purpose": "any maskable"
+          }
+    ]
+  }

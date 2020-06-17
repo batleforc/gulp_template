@@ -1,1 +1,46 @@
-<h1>test</h1>
+<!doctype html>
+
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+
+  <title>Empty HTML</title>
+  <meta name="description" content="Empty html">
+  <meta name="author" content="Batleforc">
+
+  <link rel="stylesheet" href="styles/main.min.css">
+
+  <link rel="manifest" href="manifest.json">
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Template">
+<meta name="apple-mobile-web-app-title" content="Template">
+<meta name="theme-color" content="#FF9800">
+<meta name="msapplication-navbutton-color" content="#FF9800">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="msapplication-starturl" content="/index.html">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" sizes="196x196" href="media/maskicon.png">
+<link rel="apple-touch-icon" sizes="196x196" href="media/maskicon.png">
+
+</head>
+
+<body>
+  <script src="scripts/main.min.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('Service Worker registered! 😎');
+          })
+          .catch(err => {
+            console.log('Registration failed 😫 ', err);
+          });
+      });
+    }
+  </script>
+</body>
+</html>

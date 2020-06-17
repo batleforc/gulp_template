@@ -5,17 +5,22 @@ const babel = require('gulp-babel'); //Clean le code
 const uglify = require('gulp-uglify'); // Minify the JS
 const rename = require('gulp-rename'); //renome le code
 const cleanCSS = require('gulp-clean-css'); //minify the CSS
+const workboxBuild = require('workbox-build'); //permet de générer le service worker plus facilement
 
 // Clean "build" directory
 const clean = () => {
     return del(['build/*'], {dot: true});
   };
-  gulp.task('clean', clean);
+gulp.task('clean', clean);
 
 function copy() { //permet de creer un dossier build
     return gulp.src([
       'app/*.html',
       'app/**/*.jpg',
+      'app/**/*.png',
+      'app/**/*.svg',
+      'app/**/*.gif',
+      'app/manifest.json',
       //'app/**/*.css',
       //'app/**/*.js' //process by processJS
     ])
@@ -44,13 +49,30 @@ function processCss(){ //update les changement sur les fichier CSS
 }
 gulp.task('processCSS',processCss); //ajoute la tache pour clean le css
 
-function watch() { //update les changement sur les fichier JS
-    gulp.watch('app/scripts/*.js', processJs);
-    gulp.watch('/app/styles/*.css',processCss);
-} 
-gulp.task('watch', watch);
+const buildSw = () => {
+    return workboxBuild.injectManifest({
+      swSrc: 'app/sw.js',
+      swDest: 'build/sw.js',
+      globDirectory: 'build',
+      globPatterns: [
+        'styles\/*.css',
+        'index.html',
+        'scripts\/*.js',
+        'media\/*.jpg',
+        'media\/*.svg',
+        'media\/*.png',
+        'media\/*.gif',
+      ]
+    }).then(resources => {
+      console.log(`Injected ${resources.count} resources for precaching, ` +
+          `totaling ${resources.size} bytes.`);
+    }).catch(err => {
+      console.log('Uh oh 😬', err);
+    });
+  }
+  gulp.task('build-sw', buildSw);
 
-const build = gulp.series(clean, copy, processCss,processJs);
+const build = gulp.series(clean, copy, processCss,processJs,buildSw);
 gulp.task('build', build);
 const browserSyncOptions = {
     server: 'build',
