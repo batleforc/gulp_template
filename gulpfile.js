@@ -24,6 +24,8 @@ function copy() { //permet de creer un dossier build
       'app/**/*.gif',
       'app/manifest.json',
       'app/Notif.js',
+      'app/firebase.json',
+      'app/vapid.json'
       //'app/**/*.css',
       //'app/**/*.js' //process by processJS
     ])
