@@ -62,6 +62,7 @@ const buildSw = () => {
         'media\/*.svg',
         'media\/*.png',
         'media\/*.gif',
+        'manifest.json',
       ]
     }).then(resources => {
       console.log(`Injected ${resources.count} resources for precaching, ` +
